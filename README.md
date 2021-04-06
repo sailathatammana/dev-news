@@ -137,4 +137,4 @@ Create a Topic model and implement the above API.
 
 #### Exercise 4 (Bonus)
 To make our application more interactive we might want to add the ability to add article and comment reactions (likes, dislikes, ...).
-Go ahead and implement reactions in your application. You're free to choose how the model should look like so try to draw it out beforehand and think of what kind of relationship will the reactions have to the articles and comments respectively?
+Go ahead and implement reactions in your application. You're free to choose how the model should look like so try to draw it out beforehand and think of what kind of relationship will the reactions have to the articles and comments respectively.
