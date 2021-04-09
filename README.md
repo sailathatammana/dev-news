@@ -15,7 +15,7 @@ Remember that you will need to configure the following dependencies in your `bui
 * Spring JPA
 * PostgreSQL Driver
 
-`src/main/resources/appliction.properties` should also be properly configured:
+`src/main/resources/application.properties` should also be properly configured:
 ```properties
 spring.jpa.database=POSTGRESQL
 spring.jpa.show-sql=true
