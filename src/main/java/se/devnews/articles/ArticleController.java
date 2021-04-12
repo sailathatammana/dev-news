@@ -51,9 +51,9 @@ public class ArticleController {
         return ResponseEntity.ok(toBeDeleted);
     }
 
-    @PostMapping("/{title}/{body}/{authorname}")
-    public Article createArticle(@PathVariable String title, @PathVariable String body, @PathVariable String authorname ){
-        Article article = new Article(title, body,authorname);
+    @PostMapping("/{title}/{body}/{authorName}")
+    public Article createArticle(@PathVariable String title, @PathVariable String body, @PathVariable String authorName){
+        Article article = new Article(title, body, authorName);
         articleRepository.save(article);
         return article;
     }
