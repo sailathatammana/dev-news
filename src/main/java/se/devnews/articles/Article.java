@@ -1,7 +1,10 @@
 package se.devnews.articles;
 
+import se.devnews.comments.Comments;
+
 import javax.persistence.*;
 import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 public class Article {
@@ -12,6 +15,9 @@ public class Article {
     private String title;
     private String body;
     private String authorName;
+
+    @OneToMany(mappedBy = "article")
+    private List<Comments> comments;
 
     public Article() {
     }
