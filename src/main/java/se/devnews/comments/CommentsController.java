@@ -32,7 +32,7 @@ public class CommentsController {
     }
 
     // Return all comments made by a author
-    @GetMapping("/comments?authorName={authorName}")
+    @GetMapping(value = "/comments", params = {"authorName"})
     public ResponseEntity<List<Comments>> getAllCommentsByAuthorName(@RequestParam String authorName){
         List<Comments> comments = commentsRepository
                 .findAll()
