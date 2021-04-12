@@ -22,7 +22,7 @@ public class CommentsController {
 
     // Return all comments on a given article
     @GetMapping("/articles/{articleId}/comments")
-    public ResponseEntity<List<Comments>> listofCommentsById(@PathVariable Long articleId){
+    public ResponseEntity<List<Comments>> getAllCommentsById(@PathVariable Long articleId){
         List<Comments> comments = commentsRepository
                 .findAll()
                 .stream()
@@ -42,7 +42,6 @@ public class CommentsController {
         return ResponseEntity.ok(comments);
     }
 
-
     //Add new comment on article
     @PostMapping("/articles/{articleId}/comments")
     public ResponseEntity<Comments> createComment(@PathVariable Long articleId, @RequestBody Comments comments){
@@ -51,5 +50,21 @@ public class CommentsController {
         commentsRepository.save(comments);
         return ResponseEntity.status(HttpStatus.CREATED).body(comments);
     }
-}
 
+    //update the given comment.
+    @PutMapping("/comments/{id}")
+    public ResponseEntity<Comments> updateComment(@PathVariable Long id, @RequestBody Comments updatedComment){
+        commentsRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        updatedComment.setId(id);
+        commentsRepository.save(updatedComment);
+        return ResponseEntity.ok(updatedComment);
+    }
+
+    //Delete the given comment.
+    @DeleteMapping("comments/{id}")
+    public ResponseEntity<Comments> deleteComment(@PathVariable Long id){
+        Comments comment = commentsRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        commentsRepository.delete(comment);
+        return ResponseEntity.ok(comment);
+    }
+}
