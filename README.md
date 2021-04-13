@@ -9,11 +9,11 @@
     - [Articles](#articles)
     - [Exercise 1](#exercise-1)
     - [Comments](#comments)
-      -[Exercise 2](#exercise-2)
-  - [Topics](#topics)
-  - [Exercise 3](#exercise-3)
-  - [Reactions](#reactions)
-  - [Exercise 4 \(Bonus\)](#exercise-4-bonus)
+    - [Exercise 2](#exercise-2)
+    - [Topics](#topics)
+    - [Exercise 3](#exercise-3)
+    - [Reactions](#reactions)
+    - [Exercise 4 \(Bonus\)](#exercise-4-bonus)
     
 ## Introduction
 This assignment is all about building the backend API for a developer news site where users can create articles, comment them and post their reactions (likes, dislikes). It doesn't require a graphical user interface so it is enough to be able to make requests and get plain json text responses via curl/Postman. 
