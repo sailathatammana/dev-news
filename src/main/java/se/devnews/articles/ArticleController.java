@@ -45,10 +45,10 @@ public class ArticleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Article> deleteArticle(@PathVariable Long id){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteArticle(@PathVariable Long id){
         Article toBeDeleted = articleRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         articleRepository.delete(toBeDeleted);
-        return ResponseEntity.ok(toBeDeleted);
     }
 
     @PostMapping("/{title}/{body}/{authorName}")
