@@ -1,5 +1,20 @@
 # Dev News
 
+## Contents
+
+- [Introduction](#introduction)
+- [Learning Objectives](#learning-objectives)
+- [Setup](#setup)
+- [Assignment](#assignment)
+    - [Articles](#articles)
+    - [Exercise 1](#exercise-1)
+    - [Comments](#comments)
+      [Exercise 2](#exercise-2)
+  - [Topics](#topics)
+  - [Exercise 3](#exercise-3)
+  - [Reactions](#reactions)
+  - [Exercise 4 \(Bonus\)](#exercise-4-bonus)
+    
 ## Introduction
 This assignment is all about building the backend API for a developer news site where users can create articles, comment them and post their reactions (likes, dislikes). It doesn't require a graphical user interface so it is enough to be able to make requests and get plain json text responses via curl/Postman. 
 
@@ -46,13 +61,14 @@ Example JSON response when requesting an article:
 ```
 
 These are the endpoints for the article API that should exist:
-| HTTP Method | HTTP Path | Action |
-| ------------|-----------|--------|
-| `GET`    | `/articles`      | return all articles. |
-| `GET`    | `/articles/{id}` | return a specific article based on the provided id.|
-| `POST`   | `/articles`      | create a new article.|
-| `PUT`    | `/articles/{id}` | update the given article.|
-| `DELETE` | `/articles/{id}` | delete the given article.|
+
+| Status | HTTP Method | HTTP Path | Action |
+| ------------|-----------|--------|--------|
+| :heavy_check_mark: | `GET`    | `/articles`      | return all articles. |
+| :heavy_check_mark: | `GET`    | `/articles/{id}` | return a specific article based on the provided id.|
+| :heavy_check_mark: | `POST`   | `/articles`      | create a new article.|
+| :heavy_check_mark: | `PUT`    | `/articles/{id}` | update the given article.|
+| :heavy_check_mark: | `DELETE` | `/articles/{id}` | delete the given article.|
 
 #### Exercise 1
 Create an Article model and implement the above API.
@@ -79,13 +95,13 @@ Example JSON response when requesting a comment:
 ```
 With the following endpoints:
 
-| HTTP Method | HTTP Path | Action |
-| ------------|-----------|--------|
-| `GET`    | `/articles/{articleId}/comments`    | return all comments on article given by `articleId`. |
-| `GET`    | `/comments?authorName={authorName}` | return all comments made by author given by `authorName`. |
-| `POST`   | `/articles/{articleId}/comments`    | create a new comment on article given by `articleId`. |
-| `PUT`    | `/comments/{id}`                    | update the given comment. |
-| `DELETE` | `/comments/{id}`                    | delete the given comment. |
+| Status | HTTP Method | HTTP Path | Action |
+| ------------|-----------|--------|--------|
+| :heavy_check_mark: | `GET`    | `/articles/{articleId}/comments`    | return all comments on article given by `articleId`. |
+| :heavy_check_mark: | :heavy_check_mark:    | `GET`    | `/comments?authorName={authorName}` | return all comments made by author given by `authorName`. |
+| :heavy_check_mark: | `POST`   | `/articles/{articleId}/comments`    | create a new comment on article given by `articleId`. |
+| :heavy_check_mark: | `PUT`    | `/comments/{id}`                    | update the given comment. |
+| :heavy_check_mark: | `DELETE` | `/comments/{id}`                    | delete the given comment. |
 
 #### Exercise 2
 Create a Comment model and implement the above API.
@@ -119,16 +135,16 @@ Example JSON response when requesting an article should now be:
 ```
 Endpoints:
 
-| HTTP Method | HTTP Path | Action |
-| ------------|-----------|--------|
-| `GET`    | `/topics` | return all topics. |
-| `GET`    | `/articles/{articleId}/topics` | return all topics associated with article given by `articleId`. |
-| `POST`   | `/articles/{articleId}/topics` | associate the topic with the article given by `articleId`. If topic does not already exist, it is created. |
-| `POST`   | `/topics` | create a new topic. |
-| `PUT`    | `/topics/{id}` | update the given topic. |
-| `DELETE` | `/topics/{id}` | delete the given topic. |
-| `DELETE` | `/articles/{articleId}/topics/{topicId}` | delete the association of a topic for the given article. The topic & article themselves remain. |
-| `GET`    | `/topics/{topicId}/articles` | return all articles associated with the topic given by `topicId`. |
+| Status | HTTP Method | HTTP Path | Action |
+| ------------|-----------|--------|--------|
+| :heavy_check_mark: | `GET`    | `/topics` | return all topics. |
+| :heavy_check_mark: | `GET`    | `/articles/{articleId}/topics` | return all topics associated with article given by `articleId`. |
+| :heavy_check_mark: | `POST`   | `/articles/{articleId}/topics` | associate the topic with the article given by `articleId`. If topic does not already exist, it is created. |
+| :heavy_check_mark: | `POST`   | `/topics` | create a new topic. |
+| :heavy_check_mark: | `PUT`    | `/topics/{id}` | update the given topic. |
+| :heavy_check_mark: | `DELETE` | `/topics/{id}` | delete the given topic. |
+| :heavy_check_mark: | `DELETE` | `/articles/{articleId}/topics/{topicId}` | delete the association of a topic for the given article. The topic & article themselves remain. |
+| :heavy_check_mark: | `GET`    | `/topics/{topicId}/articles` | return all articles associated with the topic given by `topicId`. |
 
 #### Exercise 3
 Create a Topic model and implement the above API.

@@ -23,7 +23,7 @@ public class Article {
     private List<Comments> comments;
 
     @ManyToMany
-    private Set<Topic> topicsList = new HashSet<>();
+    private List<Topic> topicsList;
 
     public Article() {
     }
@@ -74,11 +74,11 @@ public class Article {
         this.comments = comments;
     }
 
-    public Set<Topic> getTopicsList() {
+    public List<Topic> getTopicsList() {
         return topicsList;
     }
 
-    public void setTopicsList(Set<Topic> topics) {
+    public void setTopicsList(List<Topic> topics) {
         this.topicsList = topics;
     }
 }

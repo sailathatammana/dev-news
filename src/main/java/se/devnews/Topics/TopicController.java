@@ -10,7 +10,6 @@ import se.devnews.exceptions.ResourceNotFoundException;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class TopicController {
@@ -27,21 +26,34 @@ public class TopicController {
     // Create a new topic
     @PostMapping("/topics")
     public ResponseEntity<Topic> createTopic(@Valid @RequestBody Topic topic){
-        topicRepository.save(topic);
-        return ResponseEntity.status(HttpStatus.CREATED).body(topic);
+        Topic topicSearch = topicRepository.findByName(topic.getName());
+        if(topicSearch == null){
+            topicRepository.save(topic);
+            return ResponseEntity.status(HttpStatus.CREATED).body(topic);
+        }
+        topicRepository.save(topicSearch);
+        return ResponseEntity.status(HttpStatus.CREATED).body(topicSearch);
     }
 
     // Associate the topic with the article given by articleId. If topic does not already exist, it is created.
     @PostMapping("/articles/{articleId}/topics")
     public ResponseEntity<Article> createAssociation(@RequestBody Topic topicToAdd, @PathVariable Long articleId){
         Article article = articleRepository.findById(articleId).orElseThrow(ResourceNotFoundException::new);
-        boolean topicExists = topicRepository.existsByName(topicToAdd.getName());
-        if (!topicExists){
-            topicRepository.save(topicToAdd);
-        } else {
-            topicToAdd = topicRepository.findByName(topicToAdd.getName());
+        //Checks if Topic already exists on the Article so double topic is not added.
+        List<Topic> topics = article.getTopicsList();
+        for(Topic topic2 : topics){
+            if(topic2.getName().equals(topicToAdd.getName())){
+                return  ResponseEntity.status(HttpStatus.CONFLICT).body(article);
+            }
         }
-        article.getTopicsList().add(topicToAdd);
+        //Checks if the article Topic already exists in the articleTopic Repositoty, if it doesnt exist adds it to the Repository.
+        Topic articleTopicSearch = topicRepository.findByName(topicToAdd.getName());
+        if (articleTopicSearch == null) {
+            topicRepository.save(topicToAdd);
+            article.getTopicsList().add(topicToAdd);
+        } else {
+            article.getTopicsList().add(articleTopicSearch);
+        }
         articleRepository.save(article);
         return ResponseEntity.status(HttpStatus.CREATED).body(article);
     }
@@ -55,17 +67,17 @@ public class TopicController {
 
     // Return all topics associated with article given by articleId
     @GetMapping("/articles/{articleId}/topics")
-    public ResponseEntity<Set<Topic>> getAllTopicsOfArticle(@PathVariable Long articleId){
+    public ResponseEntity<List<Topic>> getAllTopicsOfArticle(@PathVariable Long articleId){
         Article givenArticle = articleRepository.findById(articleId).orElseThrow(ResourceNotFoundException::new);
-        Set<Topic> allTopicOfGivenArticle = givenArticle.getTopicsList();
+        List<Topic> allTopicOfGivenArticle = givenArticle.getTopicsList();
         return ResponseEntity.ok(allTopicOfGivenArticle);
     }
 
     // Return all articles associated with the given topicId
     @GetMapping("/topics/{topicId}/articles")
-    public ResponseEntity<Set<Article>> getAllArticlesOfTopic(@PathVariable Long topicId){
+    public ResponseEntity<List<Article>> getAllArticlesOfTopic(@PathVariable Long topicId){
         Topic givenTopic = topicRepository.findById(topicId).orElseThrow(ResourceNotFoundException::new);
-        Set<Article> allArticlesOfGivenTopic = givenTopic.getArticles();
+        List<Article> allArticlesOfGivenTopic = givenTopic.getArticles();
         return ResponseEntity.ok(allArticlesOfGivenTopic);
     }
 
@@ -88,11 +100,14 @@ public class TopicController {
 
     // Delete the association of the given topic for the given article. The topic & article themselves remain
     @DeleteMapping("/articles/{articleId}/topics/{topicId}")
-    public ResponseEntity<Article> deleteAssociation(@PathVariable Long articleId, @PathVariable Long topicId){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAssociation(@PathVariable Long articleId, @PathVariable Long topicId){
         Article articleToBeDisassociated = articleRepository.findById(articleId).orElseThrow(ResourceNotFoundException::new);
         Topic topicToBeDisassociated = topicRepository.findById(topicId).orElseThrow(ResourceNotFoundException::new);
-        articleToBeDisassociated.getTopicsList().remove(topicToBeDisassociated);
-        articleRepository.save(articleToBeDisassociated);
-        return ResponseEntity.ok(articleToBeDisassociated);
+        if(articleToBeDisassociated.getTopicsList().contains(topicToBeDisassociated)){
+            articleToBeDisassociated.getTopicsList().remove(topicToBeDisassociated);
+            articleRepository.save(articleToBeDisassociated);
+        }
+        throw new ResourceNotFoundException();
     }
 }
