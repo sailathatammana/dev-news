@@ -9,7 +9,7 @@
     - [Articles](#articles)
     - [Exercise 1](#exercise-1)
     - [Comments](#comments)
-      [Exercise 2](#exercise-2)
+      -[Exercise 2](#exercise-2)
   - [Topics](#topics)
   - [Exercise 3](#exercise-3)
   - [Reactions](#reactions)
