@@ -108,6 +108,9 @@ public class TopicController {
             articleToBeDisassociated.getTopicsList().remove(topicToBeDisassociated);
             articleRepository.save(articleToBeDisassociated);
         }
-        throw new ResourceNotFoundException();
+        else{
+            throw new ResourceNotFoundException();
+        }
+
     }
 }
