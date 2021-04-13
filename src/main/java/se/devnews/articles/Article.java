@@ -1,10 +1,13 @@
 package se.devnews.articles;
 
+import se.devnews.Topics.Topic;
 import se.devnews.comments.Comments;
 
 import javax.persistence.*;
 import javax.persistence.Id;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Article {
@@ -18,6 +21,9 @@ public class Article {
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comments> comments;
+
+    @ManyToMany
+    private Set<Topic> topicsList = new HashSet<>();
 
     public Article() {
     }
@@ -66,5 +72,13 @@ public class Article {
 
     public void setComments(List<Comments> comments) {
         this.comments = comments;
+    }
+
+    public Set<Topic> getTopicsList() {
+        return topicsList;
+    }
+
+    public void setTopicsList(Set<Topic> topics) {
+        this.topicsList = topics;
     }
 }
